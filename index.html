@@ -1805,6 +1805,282 @@
     }
 
     /* ===========================================================
+   Auth Modal
+=========================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 14, 36, .62);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s var(--ease);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      transform: translateY(18px);
+      transition: transform .3s var(--ease);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+
+    .modal-close:hover {
+      background: var(--line);
+      color: var(--ink);
+    }
+
+    .modal-head {
+      margin-bottom: 20px;
+    }
+
+    .modal-head h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .modal-head p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+
+    .modal-tab {
+      flex: 1;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      cursor: pointer;
+      transition: background .2s, color .2s, box-shadow .2s;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .modal-tab.active {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+      box-shadow: 0 2px 8px rgba(10, 26, 63, .08);
+    }
+
+    .modal-pane {
+      display: none;
+    }
+
+    .modal-pane.active {
+      display: block;
+    }
+
+    .trial-banner {
+      background: linear-gradient(135deg, rgba(20, 184, 166, .1), rgba(10, 26, 63, .06));
+      border: 1px solid var(--teal-ring);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--teal-600);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .plan-select-label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .plan-select-label .req {
+      color: #e74c3c;
+    }
+
+    .plan-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .plan-card {
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+      position: relative;
+      display: block;
+    }
+
+    .plan-card:hover {
+      border-color: var(--teal-ring);
+    }
+
+    .plan-card.selected {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-ring);
+    }
+
+    .plan-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .plan-card-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .plan-card-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--teal-600);
+      margin-bottom: 5px;
+    }
+
+    .plan-card-desc {
+      font-size: .73rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .modal-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 13px;
+    }
+
+    .modal-field label {
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .modal-field label .req {
+      color: #e74c3c;
+    }
+
+    .modal-field input {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      font-size: .93rem;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .modal-field input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-soft);
+    }
+
+    .modal-field .hint {
+      font-size: .77rem;
+      color: var(--teal-600);
+    }
+
+    .modal-submit {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: .97rem;
+      font-weight: 700;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .modal-switch {
+      text-align: center;
+      margin-top: 14px;
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    .modal-switch a {
+      color: var(--teal-600);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .modal-forgot {
+      text-align: right;
+      font-size: .82rem;
+      margin-bottom: 14px;
+    }
+
+    .modal-forgot a {
+      color: var(--teal-600);
+    }
+
+    /* ===========================================================
+   Pricing — launch offer badge
+=========================================================== */
+    .badge-launch {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, .35);
+    }
+
+    /* ===========================================================
    Responsive
 =========================================================== */
     @media (max-width:1080px) {
@@ -1854,7 +2130,7 @@
       }
 
       .nav-links,
-      .nav-cta .btn:not(.nav-toggle) {
+      .nav-cta .nav-login-btn {
         display: none
       }
 
@@ -1974,8 +2250,8 @@
       </nav>
 
       <div class="nav-cta">
-        <a href="https://demo.careopsx.co.in/register" class="btn btn-teal" target="_blank" rel="noopener">Register
-          Now</a>
+        <a href="#" class="btn btn-ghost nav-login-btn" onclick="openModal('login');return false">Login</a>
+        <a href="#" class="btn btn-teal" onclick="openModal('register','basic');return false">Book Demo</a>
         <button class="nav-toggle" aria-label="Toggle menu" id="navToggle"><span></span></button>
       </div>
     </div>
@@ -1993,8 +2269,8 @@
             built for small hospitals and clinics.</p>
 
           <div class="hero-actions">
-            <a href="https://demo.careopsx.co.in/register" class="btn btn-primary" target="_blank" rel="noopener">
-              Register Now
+            <a href="#" class="btn btn-primary" onclick="openModal('register','basic');return false">
+              Get Started Free
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M5 12h14M13 5l7 7-7 7" />
