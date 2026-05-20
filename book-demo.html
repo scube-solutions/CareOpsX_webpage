@@ -421,10 +421,10 @@
       };
 
       try {
-        const res = await fetch('https://formsubmit.co/ajax/info@careopsx.co.in', {
+        const res = await fetch('/api/send', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(payload)
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...payload, _type: 'demo' })
         });
         if (!res.ok) throw new Error();
         status.textContent = '✓ Demo scheduled! Our team will confirm within one business day.';

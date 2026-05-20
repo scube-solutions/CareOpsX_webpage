@@ -3273,7 +3273,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    /* ============= Contact form → info@careopsx.co.in ============= */
+    /* ============= Contact form → SMTP via /api/send ============= */
     const form = document.getElementById('demoForm');
     const status = document.getElementById('formStatus');
     form.addEventListener('submit', async (e) => {
@@ -3292,16 +3292,16 @@
       status.textContent = 'Sending your request…';
       status.className = 'form-status';
       try {
-        const res = await fetch('https://formsubmit.co/ajax/info@careopsx.co.in', {
+        const res = await fetch('/api/send', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            message: data.message,
             _subject: 'CareOpsX Contact Request from ' + data.name,
-            _template: 'table'
+            _type: 'contact',
+            'Full Name': data.name,
+            'Email Address': data.email,
+            'Phone Number': data.phone,
+            'Message': data.message
           })
         });
         if (!res.ok) throw new Error();
