@@ -2427,7 +2427,7 @@
 
       <div class="nav-cta">
         <a href="#" class="btn btn-ghost nav-login-btn" onclick="openModal('login');return false">Login</a>
-        <a href="#book-demo" class="btn btn-teal">Book Demo</a>
+        <a href="book-demo.html" class="btn btn-teal">Book Demo</a>
         <button class="nav-toggle" aria-label="Toggle menu" id="navToggle"><span></span></button>
       </div>
     </div>
@@ -2491,11 +2491,17 @@
             </div>
             <div class="hc-body">
               <div class="hc-side">
-                <div class="side-logo">
-                  <div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--teal),var(--teal-600));display:grid;place-items:center;flex-shrink:0">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                <div class="side-logo" style="align-items:center">
+                  <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#0f766e,#0d9488);display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(13,148,136,.4)">
+                    <svg width="13" height="13" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="8.5" y="2" width="3" height="16" rx="1.5" fill="white"/>
+                      <rect x="2" y="8.5" width="16" height="3" rx="1.5" fill="white"/>
+                    </svg>
                   </div>
-                  <span style="font-weight:700;font-size:.88rem;color:#fff">Care<b style="color:var(--teal)">OpsX</b></span>
+                  <div>
+                    <div style="font-weight:800;font-size:.84rem;color:#fff;line-height:1.1;font-family:'Manrope',sans-serif">Care<span style="color:#2dd4bf">OpsX</span></div>
+                    <div style="font-size:.52rem;color:rgba(255,255,255,.6);letter-spacing:.13em;font-weight:600;text-transform:uppercase;margin-top:1px">Healthcare Operations</div>
+                  </div>
                 </div>
                 <a class="active"><i></i> Dashboard</a>
                 <a><i></i> Analytics</a>
@@ -2673,11 +2679,17 @@
         <div class="product-showcase reveal">
           <div class="dash" role="img" aria-label="CareOpsX admin dashboard preview">
             <aside class="dash-side">
-              <div class="dsb">
-                <div style="width:26px;height:26px;background:linear-gradient(135deg,var(--teal),var(--teal-600));border-radius:7px;display:grid;place-items:center;flex-shrink:0">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              <div class="dsb" style="align-items:center">
+                <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0f766e,#0d9488);display:grid;place-items:center;flex-shrink:0;box-shadow:0 4px 10px rgba(13,148,136,.4)">
+                  <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8.5" y="2" width="3" height="16" rx="1.5" fill="white"/>
+                    <rect x="2" y="8.5" width="16" height="3" rx="1.5" fill="white"/>
+                  </svg>
                 </div>
-                <span>Care<b style="color:var(--teal)">OpsX</b></span>
+                <div>
+                  <div style="font-weight:800;font-size:.95rem;color:#fff;line-height:1.1">Care<span style="color:#2dd4bf">OpsX</span></div>
+                  <div style="font-size:.58rem;color:rgba(255,255,255,.55);letter-spacing:.13em;font-weight:600;text-transform:uppercase;margin-top:1px">Healthcare Operations</div>
+                </div>
               </div>
               <small>Overview</small>
               <a class="on">Dashboard</a>
@@ -2977,98 +2989,6 @@
       </div>
     </section>
 
-    <!-- ========== BOOK DEMO ========== -->
-    <section class="book-demo" id="book-demo">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="eyebrow">Book a Demo</span>
-          <h2 class="section-title">See CareOpsX in Action</h2>
-          <p class="section-sub">Discover how our comprehensive clinic management platform can help you focus on what matters most — patient care.</p>
-        </div>
-
-        <div class="demo-grid">
-          <div class="demo-info reveal">
-            <h3>What to expect</h3>
-            <p>Our product specialists will walk you through the platform, highlighting features tailored to your clinic's unique workflow.</p>
-            <ul class="demo-bullets">
-              <li>Personalized Walkthrough of the Platform</li>
-              <li>Live Q&amp;A Session with our Experts</li>
-              <li>Detailed Pricing &amp; Customization Discussion</li>
-              <li>No Commitment Required</li>
-            </ul>
-            <div class="demo-stats">
-              <div class="demo-stat">
-                <span class="demo-stat-icon">👥</span>
-                <strong>500+</strong>
-                <small>Demos Given</small>
-              </div>
-              <div class="demo-stat">
-                <span class="demo-stat-icon">⭐</span>
-                <strong>98%</strong>
-                <small>Satisfaction</small>
-              </div>
-              <div class="demo-stat">
-                <span class="demo-stat-icon">⏱</span>
-                <strong>30 Min</strong>
-                <small>Average Session</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="demo-form-card reveal">
-            <form id="demoBookingForm" novalidate>
-              <div class="demo-form-grid">
-                <div class="demo-field">
-                  <label for="demoName">Full Name</label>
-                  <input type="text" id="demoName" name="demoName" placeholder="Jane Doe" required />
-                </div>
-                <div class="demo-field">
-                  <label for="demoEmail">Work Email</label>
-                  <input type="email" id="demoEmail" name="demoEmail" placeholder="jane@clinic.com" required />
-                </div>
-                <div class="demo-field">
-                  <label for="demoPhone">Phone Number <em>(Optional)</em></label>
-                  <input type="tel" id="demoPhone" name="demoPhone" placeholder="+91 98765 43210" />
-                </div>
-                <div class="demo-field">
-                  <label for="demoClinic">Clinic Name <em>(Optional)</em></label>
-                  <input type="text" id="demoClinic" name="demoClinic" placeholder="Acme Physiotherapy" />
-                </div>
-                <div class="demo-field">
-                  <label for="demoLocations">Number of Locations <em>(Optional)</em></label>
-                  <input type="number" id="demoLocations" name="demoLocations" placeholder="e.g. 1" min="1" />
-                </div>
-                <div class="demo-field">
-                  <label for="demoDateTime">Preferred Date &amp; Time <em>(Optional)</em></label>
-                  <input type="datetime-local" id="demoDateTime" name="demoDateTime" />
-                </div>
-                <div class="demo-field full">
-                  <label for="demoInterest">Areas of Interest <em>(Optional)</em></label>
-                  <select id="demoInterest" name="demoInterest">
-                    <option value="">Select features</option>
-                    <option>Patient Management</option>
-                    <option>Appointment Scheduling</option>
-                    <option>Billing &amp; Invoicing</option>
-                    <option>Staff Management</option>
-                    <option>Analytics &amp; Reports</option>
-                    <option>OPD &amp; IPD Management</option>
-                    <option>Pharmacy + Laboratory</option>
-                    <option>Multi-clinic Management</option>
-                  </select>
-                </div>
-                <div class="demo-field full">
-                  <label for="demoReqs">Additional Requirements <em>(Optional)</em></label>
-                  <textarea id="demoReqs" name="demoReqs" placeholder="Any specific challenges you're facing?"></textarea>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;padding:14px;font-size:1rem">Schedule Demo</button>
-              <div class="form-status" id="demoBookingStatus" role="status" aria-live="polite"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ========== CONTACT ========== -->
     <section class="contact" id="contact">
       <div class="container">
@@ -3260,11 +3180,17 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-about">
-          <div class="footer-brand">
-            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--teal),var(--teal-600));border-radius:9px;display:grid;place-items:center;flex-shrink:0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <div class="footer-brand" style="align-items:center">
+            <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0f766e,#0d9488);display:grid;place-items:center;flex-shrink:0;box-shadow:0 5px 14px rgba(13,148,136,.4)">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8.5" y="2" width="3" height="16" rx="1.5" fill="white"/>
+                <rect x="2" y="8.5" width="16" height="3" rx="1.5" fill="white"/>
+              </svg>
             </div>
-            <span style="color:#fff;font-weight:800;font-size:1.25rem;font-family:var(--font-display)">Care<b style="color:var(--teal)">OpsX</b></span>
+            <div>
+              <div style="font-weight:800;font-size:1.22rem;color:#fff;line-height:1.1;font-family:var(--font-display)">Care<span style="color:#2dd4bf">OpsX</span></div>
+              <div style="font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.14em;font-weight:600;text-transform:uppercase;margin-top:2px">Healthcare Operations</div>
+            </div>
           </div>
           <p>A hospital management platform built to help small hospitals and clinics run smarter, faster, and more
             efficiently — without the enterprise complexity.</p>
@@ -3347,7 +3273,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    /* ============= Demo form ============= */
+    /* ============= Contact form → info@careopsx.co.in ============= */
     const form = document.getElementById('demoForm');
     const status = document.getElementById('formStatus');
     form.addEventListener('submit', async (e) => {
@@ -3358,7 +3284,6 @@
         status.className = 'form-status err';
         return;
       }
-      // Simple email sanity check
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
         status.textContent = 'Please enter a valid email address.';
         status.className = 'form-status err';
@@ -3366,48 +3291,28 @@
       }
       status.textContent = 'Sending your request…';
       status.className = 'form-status';
-
-      // Simulated submit — replace action below with your real endpoint (Firebase Fn, Google Apps Script, Formspree, etc.)
       try {
-        await new Promise(r => setTimeout(r, 900));
+        const res = await fetch('https://formsubmit.co/ajax/info@careopsx.co.in', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+            _subject: 'CareOpsX Contact Request from ' + data.name,
+            _template: 'table'
+          })
+        });
+        if (!res.ok) throw new Error();
         status.textContent = '✓ Thanks! Our team will contact you within one business day.';
         status.className = 'form-status ok';
         form.reset();
-      } catch (err) {
+      } catch {
         status.textContent = 'Something went wrong. Please call +91 96666 69377 or email info@careopsx.co.in.';
         status.className = 'form-status err';
       }
     });
-    /* ============= Demo Booking Form ============= */
-    const demoBookingForm = document.getElementById('demoBookingForm');
-    const demoBookingStatus = document.getElementById('demoBookingStatus');
-    demoBookingForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('demoName').value.trim();
-      const email = document.getElementById('demoEmail').value.trim();
-      if (!name || !email) {
-        demoBookingStatus.textContent = 'Please enter your full name and work email.';
-        demoBookingStatus.className = 'form-status err';
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        demoBookingStatus.textContent = 'Please enter a valid email address.';
-        demoBookingStatus.className = 'form-status err';
-        return;
-      }
-      demoBookingStatus.textContent = 'Scheduling your demo…';
-      demoBookingStatus.className = 'form-status';
-      try {
-        await new Promise(r => setTimeout(r, 900));
-        demoBookingStatus.textContent = '✓ Demo scheduled! Our team will confirm within one business day.';
-        demoBookingStatus.className = 'form-status ok';
-        demoBookingForm.reset();
-      } catch {
-        demoBookingStatus.textContent = 'Something went wrong. Please call +91 96666 69377 or email demo@careopsx.co.in.';
-        demoBookingStatus.className = 'form-status err';
-      }
-    });
-
     /* ============= Auth Modal ============= */
     const authModal = document.getElementById('authModal');
     const modalClose = document.getElementById('modalClose');
