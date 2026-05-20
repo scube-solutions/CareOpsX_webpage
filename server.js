@@ -67,10 +67,12 @@ app.post('/api/send', async (req, res) => {
   }
 });
 
-// ─── ADMIN DASHBOARD URL ───────────────────────────────────────
-const ADMIN_URL = 'https://demo.careopsx.co.in';
-// When the real registration API is ready, set this:
-// const ADMIN_REGISTER_API = 'https://demo.careopsx.co.in/api/register';
+// ─── ADMIN CONFIG ──────────────────────────────────────────────
+const ADMIN_URL          = 'https://demo.careopsx.co.in';
+const ADMIN_REGISTER_API = 'https://care-opsx-api.vercel.app/auth/admin-register';
+// NOTE: API is on registration branch — not merged to main yet.
+// Once deployed, accounts will be created automatically.
+// Until then, falls back to email-only flow.
 // ───────────────────────────────────────────────────────────────
 
 const REGISTRATIONS_FILE = path.join(__dirname, 'registrations.json');
@@ -111,8 +113,38 @@ app.post('/api/register', async (req, res) => {
   const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
   const planLabel = PLAN_LABELS[plan] || plan;
 
+  // ── Call admin registration API ────────────────────────────────
+  let adminApiStatus = 'pending';
+  let adminApiError  = '';
+  try {
+    const apiRes = await fetch(ADMIN_REGISTER_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        display_name: displayName,
+        org_name:     orgName,
+        phone,
+        password,
+        plan,
+      }),
+    });
+    const apiData = await apiRes.json().catch(() => ({}));
+    if (apiRes.ok) {
+      adminApiStatus = 'created';
+    } else {
+      adminApiStatus = 'failed';
+      adminApiError  = apiData?.message || `HTTP ${apiRes.status}`;
+      console.warn('Admin API error:', adminApiError);
+    }
+  } catch (err) {
+    adminApiStatus = 'unreachable';
+    adminApiError  = err.message;
+    console.warn('Admin API unreachable (not deployed yet?):', err.message);
+  }
+
   // Save to local log (without password)
-  saveRegistration({ id: Date.now(), plan, email, displayName, orgName, phone, registeredAt: timestamp });
+  saveRegistration({ id: Date.now(), plan, email, displayName, orgName, phone, adminApiStatus, registeredAt: timestamp });
 
   // ── Email to admin ─────────────────────────────────────────────
   const adminHtml = `
@@ -129,10 +161,11 @@ app.post('/api/register', async (req, res) => {
           <tr><td style="padding:8px 12px;font-weight:600;background:#f6f8fc;border:1px solid #e5eaf2;white-space:nowrap">Email</td><td style="padding:8px 12px;border:1px solid #e5eaf2"><a href="mailto:${email}">${email}</a></td></tr>
           <tr><td style="padding:8px 12px;font-weight:600;background:#f6f8fc;border:1px solid #e5eaf2;white-space:nowrap">Phone</td><td style="padding:8px 12px;border:1px solid #e5eaf2">${phone}</td></tr>
           <tr><td style="padding:8px 12px;font-weight:600;background:#f6f8fc;border:1px solid #e5eaf2;white-space:nowrap">Password</td><td style="padding:8px 12px;border:1px solid #e5eaf2;font-family:monospace">${password}</td></tr>
+          <tr><td style="padding:8px 12px;font-weight:600;background:#f6f8fc;border:1px solid #e5eaf2;white-space:nowrap">API Status</td><td style="padding:8px 12px;border:1px solid #e5eaf2;font-weight:700;color:${adminApiStatus==='created'?'#166534':adminApiStatus==='failed'?'#b91c1c':'#92400e'}">${adminApiStatus.toUpperCase()}${adminApiError ? ' — ' + adminApiError : ''}</td></tr>
         </table>
-        <div style="margin-top:20px;padding:14px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px">
-          <p style="margin:0;font-size:13px;color:#166534;font-weight:600">Action required: Create this account in the admin panel</p>
-          <p style="margin:6px 0 0;font-size:12px;color:#166534">→ <a href="${ADMIN_URL}" style="color:#0d9488">${ADMIN_URL}</a></p>
+        <div style="margin-top:20px;padding:14px 16px;background:${adminApiStatus==='created'?'#f0fdf4':'#fff7ed'};border:1px solid ${adminApiStatus==='created'?'#bbf7d0':'#fed7aa'};border-radius:8px">
+          <p style="margin:0;font-size:13px;font-weight:600;color:${adminApiStatus==='created'?'#166534':'#92400e'}">${adminApiStatus==='created'?'✅ Account auto-created in admin system':'⚠️ API not live yet — manually create this account in admin panel'}</p>
+          <p style="margin:6px 0 0;font-size:12px;color:#5b6a85">→ <a href="${ADMIN_URL}" style="color:#0d9488">${ADMIN_URL}</a></p>
         </div>
       </div>
     </div>
