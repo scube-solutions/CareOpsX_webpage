@@ -3378,12 +3378,15 @@
       closeModal();
     });
 
-    document.getElementById('registerSubmit').addEventListener('click', function () {
-      const email = document.getElementById('regEmail').value.trim();
-      const name = document.getElementById('regName').value.trim();
-      const org = document.getElementById('regOrg').value.trim();
-      const phone = document.getElementById('regPhone').value.trim();
-      const pass = document.getElementById('regPassword').value;
+    document.getElementById('registerSubmit').addEventListener('click', async function () {
+      const email    = document.getElementById('regEmail').value.trim();
+      const name     = document.getElementById('regName').value.trim();
+      const org      = document.getElementById('regOrg').value.trim();
+      const phone    = document.getElementById('regPhone').value.trim().replace(/\s/g, '');
+      const pass     = document.getElementById('regPassword').value;
+      const plan     = document.querySelector('.plan-card.selected input[type="radio"]')?.value || 'basic';
+
+      // Inline validation
       if (!email || !name || !org || !phone || !pass) {
         if (!email) document.getElementById('regEmail').focus();
         else if (!name) document.getElementById('regName').focus();
@@ -3392,9 +3395,33 @@
         else document.getElementById('regPassword').focus();
         return;
       }
-      const plan = document.querySelector('.plan-card.selected input[type="radio"]')?.value || 'basic';
-      window.open('https://demo.careopsx.co.in/register?plan=' + plan, '_blank');
-      closeModal();
+
+      const btn = document.getElementById('registerSubmit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Creating account…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan, email, displayName: name, orgName: org, phone, password: pass })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          alert(data.error || 'Registration failed. Please try again.');
+          return;
+        }
+        // Success → redirect to admin dashboard
+        closeModal();
+        window.location.href = data.redirectUrl || 'https://demo.careopsx.co.in';
+      } catch {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        alert('Something went wrong. Please call +91 96666 69377.');
+      }
     });
   </script>
 </body>
