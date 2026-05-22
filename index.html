@@ -3402,10 +3402,10 @@
       btn.disabled = true;
 
       try {
-        const res = await fetch('/api/register', {
+        const res = await fetch('https://care-opsx-api.vercel.app/auth/admin-register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan, email, displayName: name, orgName: org, phone, password: pass })
+          body: JSON.stringify({ plan, email, display_name: name, org_name: org, phone, password: pass })
         });
         const data = await res.json();
         if (!res.ok) {
@@ -3414,9 +3414,11 @@
           alert(data.error || 'Registration failed. Please try again.');
           return;
         }
+        // Store token so user is logged in on the dashboard
+        if (data.token) localStorage.setItem('token', data.token);
         // Success → redirect to admin dashboard
         closeModal();
-        window.location.href = data.redirectUrl || 'https://demo.careopsx.co.in';
+        window.location.href = 'https://demo.careopsx.co.in';
       } catch {
         btn.textContent = originalText;
         btn.disabled = false;
